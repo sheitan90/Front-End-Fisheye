@@ -47,4 +47,13 @@ h1 {
 .photographer_section article img {
     height: 200px;
     width: 200px;
+    border-radius: 50%;
+}
+
+.photographer_section article p:nth-child(3) {
+    color: #D3573C;
+}
+
+.photographer_section article p:nth-child(4) {
+    font-weight: bolder;
 }
