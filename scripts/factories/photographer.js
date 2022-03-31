@@ -2,11 +2,14 @@ export function photographerFactory(data) {
     const { name, portrait, city, country, tagline, price, id } = data;
 
     const picture = `assets/photographers/${portrait}`;
-    console.log(id)
+
     function getUserCardDOM() {
         const article = document.createElement( 'article' );
         const a = document.createElement( 'a' );
-        a.href = "photographer.html?id=${id}";
+        a.href = "photographer.html?id=" + id;
+        let params = (new URL(document.location)).searchParams;
+        let leid = params.get('id');
+        console.log(leid);
         const img = document.createElement( 'img' );
         img.setAttribute("src", picture);
         img.setAttribute("alt", "photo de " + name );
