@@ -1,5 +1,5 @@
 import {photographerFactory} from "../factories/photographer.js"
-import {mediaFactory} from "../factories/media"
+import {mediaFactory} from "../factories/media.js"
 //Mettre le code JavaScript lié à la page photographer.html
 
 async function getPhotographers() {
@@ -13,9 +13,15 @@ return fetch("../../data/photographers.json")
   });
 }
 
+const getUrlId = window.location.search;
+const params = (new URL(document.location)).searchParams;
+const urlId = params.get('id');
+
+const idNeeded = response.find((element) => element.urlId === urlId);
+console.log(idNeeded)
+
                 //recupération des données media
 async function getMedia() {
-    // Penser à remplacer par les données récupérées dans le json
 return fetch("../../data/photographers.json")
 .then(function(response) {
     return response.json();

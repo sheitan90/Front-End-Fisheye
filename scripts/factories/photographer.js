@@ -8,8 +8,8 @@ export function photographerFactory(data) {
         const a = document.createElement( 'a' );
         a.href = "photographer.html?id=" + id;
         let params = (new URL(document.location)).searchParams;
-        let leid = params.get('id');
-        console.log(leid);
+        let urlId = params.get('id');
+        console.log(urlId);
         const img = document.createElement( 'img' );
         img.setAttribute("src", picture);
         img.setAttribute("alt", "photo de " + name );
