@@ -1,54 +1,29 @@
 import {photographerFactory} from "../factories/photographer.js"
 import {mediaFactory} from "../factories/media.js"
-//Mettre le code JavaScript lié à la page photographer.html
+import {getPhotographer, getMedia, getPhotographers} from "../utils/api.js"
 
-async function getPhotographers() {
-    // Penser à remplacer par les données récupérées dans le json
-return fetch("../../data/photographers.json")
-.then(function(response) {
-    return response.json();
-  })
-  .then(function(myjson) {
-    return myjson.photographers
-  });
-}
+const getUrlId = window.location;
+const params = (new URL(getUrlId)).searchParams;
+const urlId = Number(params.get('id'));
 
-const getUrlId = window.location.search;
-const params = (new URL(document.location)).searchParams;
-const urlId = params.get('id');
 
-const idNeeded = response.find((element) => element.urlId === urlId);
-console.log(idNeeded)
+const photographer = await getPhotographer(urlId);
 
-                //recupération des données media
-async function getMedia() {
-return fetch("../../data/photographers.json")
-.then(function(response) {
-    return response.json();
-  })
-  .then(function(myjson) {
-    return myjson.media
-  });
-}
-            //////////////////////////////////////////////////
 
-async function displayData(photographers) {
-    const photographersSection = document.querySelector("");
 
-    photographers.forEach((photographer) => {
+async function displayData(photographer) {
+    const photographersSection = document.querySelector(".photograph-header");
+    
         const photographerModel = photographerFactory(photographer);
-        const userCardDOM = photographerModel.getUserCardDOM();
-        photographersSection.appendChild(userCardDOM);
-    });
+        const idUserCardDOM = photographerModel.getUserById();
+        console.log(idUserCardDOM)
+        photographersSection.appendChild(idUserCardDOM);
 };
 
 async function init() {
-    // Récupère les datas des photographes
-    const photographers  = await getPhotographers();
-    displayData(photographers);
+    displayData(photographer);
 };
-/////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////
+
 async function displayMedia(medias) {
     const mediaSection = document.querySelector(".work");
 
@@ -60,11 +35,10 @@ async function displayMedia(medias) {
 };
 
 async function initMedia() {
-    // Récupère les datas des media
-    const media  = await getMedia();
+    const media  = await getMedia(urlId);
+    console.log(media)
     displayMedia(media);
 };
-////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////
+
 init();
 initMedia();
