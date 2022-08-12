@@ -1,31 +1,76 @@
-export function mediaFactory(data) {
-    const { photographerId, image, title, likes, video, price, date } = data;
+export default function mediaFactory(data) {
+  const {
+    image, title, likes, video,
+  } = data;
 
-    const picture = `assets/photographers/${image}`;
-    const lecteurVideo = `assets/photographers/${video}`;
-    function getMediaCard() {
-        const article = document.createElement( 'article' );
+  const picture = `assets/photographers/${image}`;
+  const lecteurVideo = `assets/photographers/${video}`;
+  function getMediaCard() {
+    const article = document.createElement('article');
 
-        const imageWork = document.createElement('img');
-        imageWork.setAttribute("src", picture,);
-        imageWork.setAttribute("alt", title );
+    const infoPicture = document.createElement('div');
+    infoPicture.classList.add('text-picture');
 
-        const infoPicture = document.createElement("div");
-        infoPicture.classList.add("text-picture");
+    const imgTitle = document.createElement('div');
+    imgTitle.classList.add('title-img');
 
-        const h2 = document.createElement( 'h2' );
-        h2.textContent = title;
-        
-        const heart = document.createElement('p');
-        heart.textContent = likes + "♥" ;
+    const likeImg = document.createElement('div');
+    likeImg.classList.add('like-heart');
 
-        article.appendChild(imageWork);
-        article.appendChild(infoPicture);
+    const h2 = document.createElement('h2');
+    h2.textContent = title;
 
-        infoPicture.appendChild(h2);
-        infoPicture.appendChild(heart);
+    const numberLike = document.createElement('p');
+    numberLike.textContent = `${likes}`;
+    numberLike.style.cursor = 'pointer';
+    numberLike.setAttribute('tabindex', '1');
 
-        return (article);
+    const heart = document.createElement('p');
+    heart.textContent = '♥';
+    heart.style.cursor = 'pointer';
+
+    article.appendChild(infoPicture);
+    if (data.image) {
+      const imageWork = document.createElement('img');
+      imageWork.setAttribute('src', picture);
+      imageWork.setAttribute('alt', title);
+      imageWork.setAttribute('tabindex', 1);
+      imageWork.classList.add('img-work');
+      imageWork.style.cursor = 'pointer';
+      article.appendChild(imageWork);
+    } else {
+      const videos = document.createElement('video');
+      videos.setAttribute('src', lecteurVideo);
+      videos.setAttribute('alt', title);
+      videos.setAttribute('type', 'video/mp4');
+      videos.setAttribute('tabindex', 1);
+      videos.style.cursor = 'pointer';
+      videos.classList.add('img-work');
+      article.appendChild(videos);
     }
-    return { getMediaCard }
+    article.appendChild(infoPicture);
+
+    infoPicture.appendChild(imgTitle);
+    infoPicture.appendChild(likeImg);
+
+    imgTitle.appendChild(h2);
+
+    likeImg.appendChild(numberLike);
+    likeImg.appendChild(heart);
+
+    let clicked = false;
+
+    likeImg.addEventListener('click', () => {
+      if (!clicked) {
+        clicked = true;
+        numberLike.textContent++;
+      } else {
+        clicked = false;
+        numberLike.textContent--;
+      }
+    });
+
+    return (article);
+  }
+  return { getMediaCard };
 }

@@ -2,37 +2,83 @@
 <html>
   <head>
     <link href="css/style.css" rel="stylesheet" type="text/css" />
+    <link href="css/lightbox.css" rel="stylesheet" type="text/css" />
     <meta charset="utf-8">
     <link rel="icon" type="image/png" href="assets/favicon.png">
+    <script src="https://kit.fontawesome.com/1ddc888548.js" crossorigin="anonymous"></script>
     <link href="https://fonts.googleapis.com/css?family=DM+Sans&display=swap" rel="stylesheet">
     <title>Fisheye - photographe </title>
   </head>
-  <body>
+  <body id="body">
     <header>
-      <img src="assets/images/logo.png" class="logo" />
+      <a href="index.html"><img src="assets/images/logo.png" class="logo" /></a>
     </header>
     <main id="main">
-      <div class="photograph-header">
-        <button class="contact_button" onclick="displayModal()">Contactez-moi</button>
+      <div class="photograph-header" aria-hidden="false">
+        <button name="contact-me" class="contact_button">Contactez-moi</button>
       </div>
     </main>
-    <div class="work">
-    </div>
     <div id="contact_modal">
-			<div class="modal">
+			<div class="modal" aria-hidden="true" role="dialog" aria-describedby="modalTitle">
 				<header>
-          <h2>Contactez-moi</h2>
-          <img src="assets/icons/close.svg" onclick="closeModal()" />
+          <h2 id="modalTitle" class="modal-title">Contactez-moi</h2>
+          <button class="close-button"><img src="assets/icons/close.svg"/></button>
         </header>
 				<form>
 					<div>
 						<label>Prénom</label>
-						<input />
+            <input 
+            class="text-control"
+            type="text"
+            id="first"
+            name="first" />
+            <label>Nom</label>
+            <input 
+            class="text-control"
+            type="text"
+            id="last"
+            name="last" />
+            <label>Email</label>
+            <input 
+            class="text-control"
+            id="email"
+            name="email" />
+            <label>Votre message</label>
+						<input 
+            class="text-control"
+            id="message"
+            name="message"/>
 					</div>
-          <button class="contact_button">Envoyer</button>
+          <input
+                class="send_button"
+                type="submit"
+                class="button"
+                value="Envoyer"
+              />
 				</form>
 			</div>
 		</div>
+     <div class="choice">
+      <label>Trier par : </label>
+      <select class="selected-choice">
+          <option class="popularity" value="popularity">Popularité</option>
+          <option class="date" value="date">Date</option>
+          <option class="title" value="title">Titre</option>
+      </select> 
+      </div>
+    <div class="work" role="img" aria-label="Description of the overall image">
+    </div>
+    <div class="lightbox">
+      <div class="lightbox-contain">
+        <div class="img-container">
+        </div>
+        <button class="lightbox-close"><span>X</span></button>
+        <button class="lightbox-next"><img src="assets/icons/chevron-right-solid.svg"/></button>
+        <button class="lightbox-prev"><img src="assets/icons/chevron-left-solid.svg"/></i></button>
+      </div>
+    </div>
+    <div class="like-price">
+    </div>
     <script src="/scripts/utils/contactForm.js"></script>
     <script type="module" src="scripts/pages/photographer.js"></script>
   </body>
